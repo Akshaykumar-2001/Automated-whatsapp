@@ -40,16 +40,7 @@ while(True):
         get_list=driver.find_elements('xpath',"//span[@class ='matched-text _11JPr']")#matched **
         if(len(get_list)):
             unreadMsgs=True
-
-        
-        # no unread message,
-        #print(unreadMsgs)
-        # if not unreadMsgs:
-            
-        #     back_to=driver.find_element('xpath',"//*[@id='side']/div[1]/div/button")
-        #     back_to.click()
-        
-        # If an unread message present, click 
+ 
         if unreadMsgs:
             #Chat
             user=driver.find_element('xpath','//span[@title = "{}"]'.format(name))
@@ -66,7 +57,7 @@ while(True):
             send.click()
 
             
-            print(name,"texted you!") # Print name in the terminal
+            print(name,"texted you!") # Print name in terminal
 
             time.sleep(5)
     
