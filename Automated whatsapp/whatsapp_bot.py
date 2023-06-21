@@ -1,27 +1,34 @@
-
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 import time
+PATH = "path_to_chromedriver"
 
-PATH="D:\projects\Automated whatsapp\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+# Initialize the Chrome WebDriver with a Service object
+service = Service(PATH)
+driver = webdriver.Chrome(service=service)
+
 driver.get("https://web.whatsapp.com/")
 driver.maximize_window()
 
 
 text= "Hello ! Dear  "
-text2=", Akshay is sleeping right now!. By the way this is an auto generated reply from his bot. Thanks! Have a nice day :)"
+text2=", Akshay is sleeping right now!.This is an auto generated reply from his bot. Thanks! Have a nice day :)"
 
 
 time.sleep(30) # 30 sec. to scan the QR code 
 
 namelist = ["Akka","Amma","Sri"] # List of names 
 
-while(1):
+while(True):
     for name in namelist:
-        
-        search_box = driver.find_element('xpath','//*[@id="side"]/div[1]/div/div/div[2]/div/div[2]') # search-bar 
+
+        search_box = driver.find_element('xpath','//*[@id="side"]/div[1]/div/div/div[2]/div/div[1]/p') # search-bar 
         search_box.click()
-        time.sleep(2)
+        time.sleep(3)
+
+
+        unread_button = driver.find_element('xpath','//*[@id="side"]/div[1]/div/button/div/span') #un-read filter
+        unread_button.click()
 
         # Type the name of contact
         search_box.send_keys(name)
@@ -35,13 +42,15 @@ while(1):
             unreadMsgs=True
 
         
-        # no unread message, then click on back in search bar
-        if not unreadMsgs:
-            back_to=driver.find_element('xpath',"//*[@id='side']/div[1]/div/button")
-            back_to.click()
+        # no unread message,
+        #print(unreadMsgs)
+        # if not unreadMsgs:
+            
+        #     back_to=driver.find_element('xpath',"//*[@id='side']/div[1]/div/button")
+        #     back_to.click()
         
         # If an unread message present, click 
-        else:
+        if unreadMsgs:
             #Chat
             user=driver.find_element('xpath','//span[@title = "{}"]'.format(name))
             user.click()
@@ -61,7 +70,10 @@ while(1):
 
             time.sleep(5)
     
-    
-    time.sleep(200) #again run after 200 sec.
+        unread_button = driver.find_element('xpath','//*[@id="side"]/div[1]/div/button/div/span') # unrread button
+        unread_button.click()
 
+        back_to=driver.find_element('xpath',"//*[@id='side']/div[1]/div/div/button/div[2]/span")
+        back_to.click()
+    time.sleep(200) #again run after 200 sec.
 driver.quit()
