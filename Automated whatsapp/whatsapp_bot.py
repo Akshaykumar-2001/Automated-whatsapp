@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import time
-PATH = "path_to_chromedriver"
+PATH = "D:\projects\Automated whatsapp\chromedriver.exe"
 
 # Initialize the Chrome WebDriver with a Service object
 service = Service(PATH)
